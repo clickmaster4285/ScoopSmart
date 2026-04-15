@@ -43,7 +43,9 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "icon", href: "/ice-cream.png", type: "image/png" },
     ],
+
   }),
   shellComponent: RootShell,
   component: RootComponent,

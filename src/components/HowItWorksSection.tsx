@@ -13,7 +13,7 @@ const steps = [
     icon: Cog,
     number: "02",
     title: "We Set Everything Up",
-    description: "Our team installs and configures everything — POS, inventory, loyalty programs — in under 48 hours.",
+    description: "Our team installs and configures everything like POS, inventory, loyalty programs in under 48 hours.",
     color: "bg-pastel-mint",
   },
   {

@@ -2,7 +2,8 @@ import { useEffect, useRef } from "react";
 import { Monitor, BarChart3, Heart, Smartphone } from "lucide-react";
 import solutionPos from "@/assets/solution-pos.jpg";
 import solutionMobile from "@/assets/solution-mobile.jpg";
-
+import solutionInv from "@/assets/img4.webp";
+import solutionLoyality from "@/assets/img3.webp";
 const solutions = [
   {
     icon: Monitor,
@@ -14,13 +15,13 @@ const solutions = [
     icon: BarChart3,
     title: "Inventory Tracking",
     description: "Real-time stock monitoring that alerts you before supplies run low. Track every flavor, topping, and cone with precision to reduce wastage by up to 40%.",
-    image: null,
+    image: solutionInv,
   },
   {
     icon: Heart,
     title: "Loyalty Programs",
     description: "Built-in reward systems that keep customers coming back. Digital punch cards, birthday rewards, and personalized offers boost retention by 3x.",
-    image: null,
+    image: solutionLoyality,
   },
   {
     icon: Smartphone,

@@ -51,8 +51,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           <a href="#" className="flex items-center gap-2 group">
-            <IceCream className="w-8 h-8 text-primary transition-transform group-hover:rotate-12" />
-            <span className="text-xl font-bold font-[var(--font-heading)] text-foreground">
+            <IceCream className={`w-8 h-8 transition-all duration-300 ${
+              !scrolled 
+                ? "text-primary drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_12px_rgba(255,255,255,1)]" 
+                : "text-primary"
+            }`} />
+            <span className={`text-xl font-bold font-[var(--font-heading)] transition-all duration-300 ${
+              !scrolled
+                ? "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] [text-shadow:0_0_8px_rgba(255,255,255,0.5)]"
+                : "text-foreground"
+            }`}>
               ScoopSmart
             </span>
           </a>
@@ -62,21 +70,31 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                className={`text-sm font-medium transition-all duration-300 ${
+                  !scrolled
+                    ? "text-white/90 hover:text-white [text-shadow:0_0_6px_rgba(255,255,255,0.4)] hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)]"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
               >
                 {link.label}
               </a>
             ))}
             <button
               onClick={scrollToContact}
-              className="bg-primary text-primary-foreground px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
+              className={`transition-all duration-300 px-5 py-2 rounded-full text-sm font-semibold ${
+                !scrolled
+                  ? "bg-primary backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 hover:border-white/50 shadow-[0_0_12px_rgba(255,255,255,0.3)] hover:shadow-[0_0_16px_rgba(255,255,255,0.5)]"
+                  : "bg-primary text-primary-foreground hover:opacity-90"
+              }`}
             >
               Get Started
             </button>
           </div>
 
           <button
-            className="lg:hidden text-foreground"
+            className={`lg:hidden transition-all duration-300 ${
+              !scrolled ? "text-white [text-shadow:0_0_6px_rgba(255,255,255,0.5)]" : "text-foreground"
+            }`}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -85,21 +103,21 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden bg-card/95 backdrop-blur-md border-t border-border">
+        <div className="lg:hidden bg-white/80 backdrop-blur-md border-t border-white/10">
           <div className="px-4 py-4 flex flex-col gap-3">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
+                className="text-sm font-medium text-black hover:text-black/70 py-2 transition-colors"
               >
                 {link.label}
               </a>
             ))}
             <button
               onClick={scrollToContact}
-              className="bg-primary text-primary-foreground px-5 py-2.5 rounded-full text-sm font-semibold mt-2"
+              className="bg-primary backdrop-blur-sm text-white border border-white/30 px-5 py-2.5 rounded-full text-sm font-semibold mt-2 hover:bg-white/30 transition-all"
             >
               Get Started
             </button>

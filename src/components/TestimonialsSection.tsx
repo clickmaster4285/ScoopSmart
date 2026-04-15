@@ -30,12 +30,34 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   const next = () => setCurrent((p) => (p + 1) % testimonials.length);
   const prev = () => setCurrent((p) => (p - 1 + testimonials.length) % testimonials.length);
 
+  // Auto-rotate logic
+  useEffect(() => {
+    if (isAutoPlaying) {
+      autoPlayRef.current = setInterval(() => {
+        next();
+      }, 5000);
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isAutoPlaying, current]); // Reset interval when current changes to avoid rapid transitions
+
+  // Pause auto-rotate on hover
+  const pauseAutoPlay = () => setIsAutoPlaying(false);
+  const resumeAutoPlay = () => setIsAutoPlaying(true);
+
+  // GSAP animation for card transitions
   useEffect(() => {
     import("gsap").then(({ gsap }) => {
       if (cardRef.current) {
@@ -44,6 +66,7 @@ export default function TestimonialsSection() {
     });
   }, [current]);
 
+  // GSAP animation for heading
   useEffect(() => {
     import("gsap").then(({ gsap }) => {
       import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
@@ -67,7 +90,12 @@ export default function TestimonialsSection() {
             What Our <span className="text-gradient-primary">Clients Say</span>
           </h2>
         </div>
-        <div ref={cardRef} className="bg-card rounded-2xl p-8 md:p-12 shadow-xl border border-border text-center relative">
+        <div 
+          ref={cardRef} 
+          className="bg-card rounded-2xl p-8 md:p-12 shadow-xl border border-border text-center relative"
+          onMouseEnter={pauseAutoPlay}
+          onMouseLeave={resumeAutoPlay}
+        >
           <Quote className="w-10 h-10 text-primary/20 mx-auto mb-6" />
           <p className="text-lg md:text-xl text-foreground leading-relaxed mb-6 italic">
             "{t.text}"
@@ -81,15 +109,34 @@ export default function TestimonialsSection() {
           <p className="text-sm text-muted-foreground">{t.role}</p>
         </div>
         <div className="flex justify-center gap-4 mt-8">
-          <button onClick={prev} className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-pastel-pink/30 transition-colors">
+          <button 
+            onClick={() => {
+              prev();
+              resumeAutoPlay(); // Reset auto-play timer when manually navigating
+            }} 
+            className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-pastel-pink/30 transition-colors"
+          >
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
           <div className="flex items-center gap-2">
             {testimonials.map((_, i) => (
-              <button key={i} onClick={() => setCurrent(i)} className={`w-2.5 h-2.5 rounded-full transition-all ${i === current ? "bg-primary scale-125" : "bg-border"}`} />
+              <button 
+                key={i} 
+                onClick={() => {
+                  setCurrent(i);
+                  resumeAutoPlay(); // Reset auto-play timer when manually navigating
+                }} 
+                className={`w-2.5 h-2.5 rounded-full transition-all ${i === current ? "bg-primary scale-125" : "bg-border"}`} 
+              />
             ))}
           </div>
-          <button onClick={next} className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-pastel-pink/30 transition-colors">
+          <button 
+            onClick={() => {
+              next();
+              resumeAutoPlay(); // Reset auto-play timer when manually navigating
+            }} 
+            className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-pastel-pink/30 transition-colors"
+          >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>
         </div>

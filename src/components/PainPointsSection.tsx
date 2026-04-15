@@ -2,7 +2,8 @@ import { useEffect, useRef } from "react";
 import { Clock, Thermometer, Calculator, AlertTriangle } from "lucide-react";
 import painQueues from "@/assets/pain-queues.jpg";
 import painInventory from "@/assets/pain-inventory.jpg";
-
+import painBilling from "@/assets/img1.webp";
+import painPeakHours from "@/assets/img2.webp";
 const painPoints = [
   {
     icon: Clock,
@@ -22,14 +23,14 @@ const painPoints = [
     icon: Calculator,
     title: "Billing Errors",
     description: "Manual calculations lead to pricing mistakes, incorrect change, and unhappy customers. Every error costs you money and trust.",
-    image: null,
+    image: painBilling,
     color: "bg-pastel-lavender",
   },
   {
     icon: AlertTriangle,
     title: "Peak Hour Chaos",
     description: "When the rush hits, everything breaks down — orders mix up, staff scrambles, and the customer experience suffers.",
-    image: null,
+    image: painPeakHours,
     color: "bg-pastel-sky",
   },
 ];

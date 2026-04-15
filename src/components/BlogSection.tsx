@@ -67,9 +67,7 @@ export default function BlogSection() {
                 </div>
                 <h3 className="text-lg font-bold font-[var(--font-heading)] text-foreground mb-2 group-hover:text-primary transition-colors">{title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">{description}</p>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                  Read More <ArrowRight className="w-4 h-4" />
-                </span>
+              
               </div>
             </div>
           ))}
